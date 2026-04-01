@@ -1,0 +1,24 @@
+import { useEffect, useRef } from "react";
+
+const Hero = () => {
+   const videoRef = useRef();
+   useEffect(() => {
+      if(videoRef.current) videoRef.current.playbackRate = 4;
+   }, [])
+  return (
+    <section id="hero">
+      <div>
+        <h1>MacBook Pro</h1>
+        <img src="/title.png" title="Mackbook Pro Title" />
+
+        <video ref={videoRef} src="/videos/hero.mp4" autoPlay muted playsInline/>
+
+        <button>Buy</button>
+
+        <p>From $1599 or $133/mo of 12 months</p>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
