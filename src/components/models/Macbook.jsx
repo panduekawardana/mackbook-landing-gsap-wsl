@@ -19,16 +19,23 @@ export default function MacbookModel(props) {
   const { nodes, materials, scene } = useGLTF('/models/macbook-transformed.glb')
    const screen = useVideoTexture(texture);
 
+   // Clone materials once on mount
    useEffect(() => {
-         scene.traverse((child) => {
-            if(child.isMesh) {
-               if(!noChangeParts.includes(child.name)) {
-                  child.material = child.material.clone();
-                  child.material.color = new Color(color);
-               }
-            }
-         })
-      }, [color, scene]);
+     scene.traverse((child) => {
+       if (child.isMesh && !noChangeParts.includes(child.name)) {
+         child.material = child.material.clone();
+       }
+     });
+   }, [scene]);
+
+   // Update color on cloned materials
+   useEffect(() => {
+     scene.traverse((child) => {
+       if (child.isMesh && !noChangeParts.includes(child.name)) {
+         child.material.color = new Color(color);
+       }
+     });
+   }, [color, scene]);
 
   return (
     <group {...props} dispose={null}>
