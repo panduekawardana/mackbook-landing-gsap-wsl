@@ -37,9 +37,9 @@ const ShowCase = () => {
          </div>
       </div>
 
-      <div className="content">
+      <div className="content lg:opacity-0 lg:translate-y-10">
          <div className="wrapper">
-            <div className="lg:max-w-md">
+            <div className="lg:max-w-md sm:max-w-sm">
                <h2>Rocket Chip</h2>
 
                <div className="space-y-5 mt-7 pe-10">
