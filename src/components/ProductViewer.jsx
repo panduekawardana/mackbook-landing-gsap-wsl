@@ -4,7 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import MacbookModel14 from './models/Macbook-14';
 import StudioLights from './three/StudioLights';
 import ModelSwitcher from './three/ModelSwitcher';
-import { MODELS, MACBOOK_SCALE_14, MACBOOK_SCALE_16 } from '../constants';
+import { MODELS, MACBOOK_SCALE_14, MACBOOK_SCALE_16 } from '../constants/macbook';
 import { useMediaQuery } from 'react-responsive';
 
 const ProductViewer = () => {
