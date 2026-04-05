@@ -4,9 +4,11 @@ import MacbookModel14 from '../models/Macbook-14';
 import MacbookModel16 from '../models/Macbook-16';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { MODELS, MACBOOK_SCALE_14, MACBOOK_SCALE_16, MACBOOK_SCALE_14_MOBILE, MACBOOK_SCALE_16_MOBILE } from '../../constants';
 
 const ANIMATE_DURATION = 1;
 const OFFSET_DISTANCE = 5;
+const OFFSET_DISTANCE_MOBILE = 3;
 
 const fadeMeshes = (group, opacity) => {
   if (!group) return;
@@ -25,27 +27,29 @@ const moveGroup = (group, x) => {
   gsap.to(group.position, { x, duration: ANIMATE_DURATION });
 };
 
-const ModelSwitcher = ({ scale, isMobile }) => {
+const ModelSwitcher = ({ model, isMobile }) => {
   const smallMacbookRef = useRef();
   const largeMacbookRef = useRef();
 
-  const showLargeMacbook = scale === 0.08 || scale === 0.05;
+  const showLargeMacbook = model === MODELS.MACBOOK_16;
 
   useGSAP(() => {
+    const currentOffset = isMobile ? OFFSET_DISTANCE_MOBILE : OFFSET_DISTANCE;
+
     if (showLargeMacbook) {
-      moveGroup(smallMacbookRef.current, -OFFSET_DISTANCE);
+      moveGroup(smallMacbookRef.current, -currentOffset);
       moveGroup(largeMacbookRef.current, 0);
 
       fadeMeshes(smallMacbookRef.current, 0);
       fadeMeshes(largeMacbookRef.current, 1);
    } else {
        moveGroup(smallMacbookRef.current, 0);
-       moveGroup(largeMacbookRef.current, OFFSET_DISTANCE);
+       moveGroup(largeMacbookRef.current, currentOffset);
  
        fadeMeshes(smallMacbookRef.current, 1);
        fadeMeshes(largeMacbookRef.current, 0);
     }
-  }, [scale]);
+  }, [model, isMobile]);
 
   const controlConfig = {
     snap: true,
@@ -59,11 +63,11 @@ const ModelSwitcher = ({ scale, isMobile }) => {
     <>
       <PresentationControls {...controlConfig}>
           <group ref={largeMacbookRef}>
-            <MacbookModel16 scale={isMobile ? 0.06 : 0.08} />
+            <MacbookModel16 scale={isMobile ? MACBOOK_SCALE_16_MOBILE : MACBOOK_SCALE_16} />
           </group>
 
           <group ref={smallMacbookRef}>
-            <MacbookModel14 scale={isMobile ? 0.05 : 0.06} />
+            <MacbookModel14 scale={isMobile ? MACBOOK_SCALE_14_MOBILE : MACBOOK_SCALE_14} />
           </group>
       </PresentationControls>
     </>
