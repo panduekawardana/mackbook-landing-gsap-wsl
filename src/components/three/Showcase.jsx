@@ -30,7 +30,7 @@ const ShowCase = () => {
          <video src='/videos/game.mp4' loop muted autoPlay playsInline />
 
          <div className="mask">
-            <img src="mask-logo.svg"/>
+            <img src="/mask-logo.svg" alt="Apple logo mask" />
          </div>
       </div>
 
@@ -41,13 +41,13 @@ const ShowCase = () => {
 
                <div className="space-y-5 mt-7 pe-10">
                   <p>
-                     Introducing {""} <span className="text-white">M4, the next generation of Apple</span> .M4 powers
+                     Introducing <span className="text-white">M4, the next generation of Apple</span>. M4 powers
                   </p>
                   <p>
-                     It drives Apple Intelegence on Ipad Pro, so you can write, create, and accomplish more with ease. All in a design that's unbelievabily thin, light, and powerfull.
+                     It drives Apple Intelligence on iPad Pro, so you can write, create, and accomplish more with ease. All in a design that's unbelievably thin, light, and powerful.
                   </p>
-                  <p>A brand-new display engine delivers breathtaking precision, color accurancy, and brightess. Andd a next-gen GPU with hardware-accelerated ray tracing brings console-level graphics to your fingertips</p>
-                  <p className="text-primary">Learn more about Apple Intelegence</p>
+                  <p>A brand-new display engine delivers breathtaking precision, color accuracy, and brightness. And a next-gen GPU with hardware-accelerated ray tracing brings console-level graphics to your fingertips</p>
+                  <p className="text-primary">Learn more about Apple Intelligence</p>
                </div>
             </div>
 
