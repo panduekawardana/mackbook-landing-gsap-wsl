@@ -4,7 +4,7 @@ import MacbookModel14 from '../models/Macbook-14';
 import MacbookModel16 from '../models/Macbook-16';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { MODELS, MACBOOK_SCALE_14, MACBOOK_SCALE_16, MACBOOK_SCALE_14_MOBILE, MACBOOK_SCALE_16_MOBILE } from '../../constants/macbook';
+import { MODELS, MACBOOK_SCALE_14, MACBOOK_SCALE_16, MACBOOK_SCALE_14_MOBILE, MACBOOK_SCALE_16_MOBILE } from '../../constants/macbook.js';
 
 const ANIMATE_DURATION = 1;
 const OFFSET_DISTANCE = 5;
