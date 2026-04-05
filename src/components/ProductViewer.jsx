@@ -4,13 +4,17 @@ import { Canvas } from '@react-three/fiber';
 import MacbookModel14 from './models/Macbook-14';
 import StudioLights from './three/StudioLights';
 import ModelSwitcher from './three/ModelSwitcher';
+import { MODELS, MACBOOK_SCALE_14, MACBOOK_SCALE_16 } from '../constants';
 import { useMediaQuery } from 'react-responsive';
 
 const ProductViewer = () => {
   const { color, scale, setColor, setScale } = useMacbookStore();
   const isMobile = useMediaQuery({query: '(max-width: 1024px)'});
+  
+  const activeModel = scale === MACBOOK_SCALE_16 ? MODELS.MACBOOK_16 : MODELS.MACBOOK_14;
+  
   return (
-    <section id="product-viewer">
+    <section id="product-viewer" className="overflow-hidden">
       <h2>Take a closer look.</h2>
       <div className="controls">
         <p className="info">MacBookPro | Available in 14" & 16" | Space Gray & Dark Colors</p>
@@ -22,19 +26,19 @@ const ProductViewer = () => {
           </div>
 
           <div className="size-control">
-            <div onClick={() => setScale(0.06)} className={clsx(scale === 0.06 ? 'bg-white text-black' : 'bg-transparent')}>
+            <div onClick={() => setScale(MACBOOK_SCALE_14)} className={clsx(scale === MACBOOK_SCALE_14 ? 'bg-white text-black' : 'bg-transparent')}>
               <p>14"</p>
             </div>
-            <div onClick={() => setScale(0.08)} className={clsx(scale === 0.08 ? 'bg-white text-black' : 'bg-transparent')}>
+            <div onClick={() => setScale(MACBOOK_SCALE_16)} className={clsx(scale === MACBOOK_SCALE_16 ? 'bg-white text-black' : 'bg-transparent')}>
               <p>16"</p>
             </div>
           </div>
         </div>
       </div>
-      <Canvas id='canvas' camera={{ position: [0, 2, 5], fov: 50, near: 0.1, far: 100 }}>
+      <Canvas id='canvas' style={{ touchAction: 'none' }} camera={{ position: [0, 2, 5], fov: 50, near: 0.1, far: 100 }}>
         <StudioLights />
 
-        <ModelSwitcher scale={isMobile ? scale - 0.03 : scale}isMobile={isMobile} />
+        <ModelSwitcher model={activeModel} isMobile={isMobile} />
       </Canvas>
     </section>
   );
