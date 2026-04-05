@@ -9,6 +9,7 @@ import { Html } from '@react-three/drei';
 import useMacbookStore from '../store/index.js';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 const ModelScroll = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
@@ -16,6 +17,7 @@ const ModelScroll = () => {
   const {setTexture} = useMacbookStore();
 
   useEffect(() => {
+    const videos = [];
     featureSequence.forEach((feature) => {
       const v = document.createElement('video');
 
@@ -27,7 +29,15 @@ const ModelScroll = () => {
         crossOrigin: 'anonymous',
       });
       v.load();
+      videos.push(v);
     });
+
+    return () => {
+      videos.forEach((v) => {
+        v.src = '';
+        v.load();
+      });
+    };
   }, []);
 
   useGSAP(() => {
@@ -51,6 +61,21 @@ const ModelScroll = () => {
       },
     });
 
+    let lastIndex = -1;
+    ScrollTrigger.create({
+      trigger: '#features',
+      start: 'top top',
+      end: '+=3000',
+      scrub: 1,
+      onUpdate: (self) => {
+        const index = Math.min(Math.floor(self.progress * 5), 4);
+        if (index !== lastIndex) {
+          setTexture(`/videos/feature-${index + 1}.mp4`);
+          lastIndex = index;
+        }
+      },
+    });
+
     // 3D SPIN
     if (groupRef.current) {
       modelTimeline.to(groupRef.current.rotation, {
@@ -60,19 +85,10 @@ const ModelScroll = () => {
     }
 
     timeline
-      .call(() => setTexture('/videos/feature-1.mp4'))
       .to('.box1', { opacity: 1, y: 0, delay: 1 })
-
-      .call(() => setTexture('/videos/feature-2.mp4'))
       .to('.box2', { opacity: 1, y: 0 })
-
-      .call(() => setTexture('/videos/feature-3.mp4'))
       .to('.box3', { opacity: 1, y: 0 })
-
-      .call(() => setTexture('/videos/feature-4.mp4'))
       .to('.box4', { opacity: 1, y: 0 })
-
-      .call(() => setTexture('/videos/feature-5.mp4'))
       .to('.box5', { opacity: 1, y: 0 });
   }, []);
 
